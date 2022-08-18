@@ -18,6 +18,10 @@ const ContentContainer = styled.section`
   @media all and (max-width: 767px) {
     width: 80%;
   }
+
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 `;
 
 const textScroll = keyframes`
@@ -29,11 +33,11 @@ const textScroll = keyframes`
     -ms-transform:translateX(100%);
   }
   to{
-    transform:translateX(-105%);
-    -moz-transform:translateX(-105%);
-    -webkit-transform:translateX(-105%);
-    -o-transform:translateX(-105%);
-    -ms-transform:translateX(-105%);
+    transform:translateX(-100%);
+    -moz-transform:translateX(-100%);
+    -webkit-transform:translateX(-100%);
+    -o-transform:translateX(-100%);
+    -ms-transform:translateX(-100%);
   }
 `;
 
@@ -51,7 +55,7 @@ const Header = styled.header`
   align-items: center;
 
   @media all and (max-width: 767px) {
-    font-size: 2rem;
+    font-size: 1.3rem;
   }
 `;
 const Footer = styled.footer`
@@ -72,6 +76,27 @@ const Footer = styled.footer`
   }
 `;
 
+const BackgroundTextContainer = styled.div`
+  position: absolute;
+  width: 40rem;
+  height: 80%;
+  h1 {
+    font-size: 10rem;
+    color: #ffffff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+  }
+  @media all and (max-width: 767px) {
+    width: 80%;
+    h1 {
+      font-size: 5rem;
+    }
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  filter: blur(3px);
+`;
 export default function Layout({ children }) {
   return (
     <MainContainer>
@@ -79,6 +104,12 @@ export default function Layout({ children }) {
         <Header>
           <p>THIS IS ANNOYED WEB</p>
         </Header>
+        <BackgroundTextContainer>
+          <h1>MAKE</h1>
+          <h1>YOUR</h1>
+          <h1>NOISE -</h1>
+          <h1>DOLL</h1>
+        </BackgroundTextContainer>
         {children}
         <Footer>
           <p>How did you come to love Noise? Do you really love that?</p>
