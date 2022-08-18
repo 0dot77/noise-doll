@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import useAudio from '../hooks/useAudio';
 
 const MainContainer = styled.main`
   width: 100vw;
@@ -74,6 +75,8 @@ const Footer = styled.footer`
   p {
     animation: ${textScroll} 5s linear infinite;
   }
+  @media all and (max-width: 767px) {
+  }
 `;
 
 const BackgroundTextContainer = styled.div`
@@ -82,6 +85,7 @@ const BackgroundTextContainer = styled.div`
   height: 80%;
   h1 {
     font-size: 10rem;
+
     color: #ffffff;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-style: italic;
@@ -104,7 +108,7 @@ const SoundControlContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 40rem;
-  z-index: 1000;
+  z-index: 10000;
   top: 10%;
 
   svg {
@@ -121,12 +125,54 @@ const SoundControlContainer = styled.div`
       font-size: 5rem;
     }
     svg {
-      margin-top: 0.5rem;
+      margin-top: 0.75rem;
       width: 1rem;
       margin-right: 0.5rem;
     }
   }
 `;
+
+const Player = ({ url }) => {
+  const [playing, toggle] = useAudio(url);
+  return (
+    <div onClick={toggle}>
+      {playing ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+          />
+        </svg>
+      ) : (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+            clip-rule="evenodd"
+          />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+        </svg>
+      )}
+    </div>
+  );
+};
+
 export default function Layout({ children }) {
   return (
     <MainContainer>
@@ -135,22 +181,7 @@ export default function Layout({ children }) {
           <p>THIS IS ANNOYED WEB</p>
         </Header>
         <SoundControlContainer>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
-              clip-rule="evenodd"
-            />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-          </svg>
+          <Player url={'assets/sound/noise-main.mp3'} />
         </SoundControlContainer>
         <BackgroundTextContainer>
           <h1>MAKE</h1>

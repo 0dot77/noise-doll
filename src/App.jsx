@@ -38,7 +38,15 @@ body {
   height:100vh;
   overflow: hidden;
   box-sizing: border-box;
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
 }
+
+html {
+  height: -webkit-fill-available;
+}
+
 ol, ul {
 	list-style: none;
 }
