@@ -1,6 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import useAudio from '../hooks/useAudio';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const MainContainer = styled.main`
   width: 100vw;
@@ -55,6 +54,7 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   @media all and (max-width: 767px) {
     font-size: 1.45rem;
@@ -81,11 +81,22 @@ const Footer = styled.footer`
 `;
 
 export default function Layout({ children }) {
+  const { pathname } = useLocation();
+  const navi = useNavigate();
+  function handleClickHeader() {
+    navi('/');
+  }
   return (
     <MainContainer>
       <ContentContainer>
-        <Header>
-          <p>INTRODUCE NOISE-DOL</p>
+        <Header onClick={handleClickHeader}>
+          <p>
+            {pathname === '/'
+              ? 'NoiseDOL Proejct'
+              : pathname === '/introduce-dols'
+              ? 'INTRODUCE NOISE-DOLS'
+              : 'NOISE PLAYLIST'}
+          </p>
         </Header>
         {children}
         <Footer>

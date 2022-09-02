@@ -1,10 +1,10 @@
-import { OrbitControls } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
 import styled from 'styled-components';
-import HomeObj from '../models/HomeObj';
 import Noise from '../components/Noise';
 import { Link } from 'react-router-dom';
 import useAudio from '../hooks/useAudio';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import Title from '../models/Title';
 
 export const HomeContainer = styled.article`
   width: 100%;
@@ -44,16 +44,24 @@ const SoundControlContainer = styled.div`
 const MainNav = styled(SoundControlContainer)`
   top: 15%;
   font-family: mainFont;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 3rem;
+
+  a:hover {
+    color: #80ff00;
+  }
   a {
     @media all and (max-width: 767px) {
-      font-size: 0.5rem;
+      font-size: 2rem;
     }
     color: white;
     text-decoration: none;
   }
 `;
 
-const Player = ({ url }) => {
+export const Player = ({ url }) => {
   const [playing, toggle] = useAudio(url);
   return (
     <div onClick={toggle}>
@@ -109,24 +117,25 @@ export default function Home() {
   return (
     <HomeContainer>
       <SoundControlContainer>
-        <Player url={'assets/sound/noise-main.mp3'} />
+        <Player url={'assets/sound/enter.mp3'} />
       </SoundControlContainer>
       <MainNav>
         <Link to="/introduce-dols">Noise DOLS</Link>
+        <Link to="/playlist">Noise Playlist</Link>
       </MainNav>
       <NoiseContainer>
         <Noise />
+        <Canvas
+          className="model-canvas"
+          camera={{ position: [0, 0, 7] }}
+          style={{ position: 'absolute', height: '80%' }}
+        >
+          <ambientLight intensity={1} />
+          <directionalLight intensity={1} />
+          <Title />
+          <OrbitControls />
+        </Canvas>
       </NoiseContainer>
-      {/* <Canvas
-        className="canvas"
-        style={{ position: 'absolute', width: '30rem', zIndex: '1000' }}
-        camera={{ position: [0, 0, 7] }}
-      >
-        <ambientLight intensity={0.5} />
-        <directionalLight intensity={0.5} />
-        <HomeObj />
-        <OrbitControls />
-      </Canvas> */}
     </HomeContainer>
   );
 }
